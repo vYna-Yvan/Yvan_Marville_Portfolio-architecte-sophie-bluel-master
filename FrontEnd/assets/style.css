@@ -345,6 +345,22 @@ footer nav ul {
 	gap: 10px;
 }
 
+.AllCategoriesBt {
+	border: solid 1px #1D6154;
+	color: #1D6154;
+	font-weight: 700;
+	border-radius: 60px;
+	text-align: center;
+	padding: 10px 25px;
+	cursor: pointer;
+}
+
+.AllCategoriesBt:hover {
+	background-color: #1D6154;
+	color: #fff;
+	transition: 0.5s;
+}
+
 .listElement {
 	border: solid 1px #1D6154;
 	color: #1D6154;

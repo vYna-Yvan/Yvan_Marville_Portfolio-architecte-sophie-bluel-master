@@ -75,7 +75,7 @@ const generateCategoriesList = () => {
             const tous = document.createElement('li')
             tous.innerHTML = 'Tous'
             listCategories.insertBefore(tous, listCategories[0])
-            tous.className = 'listElement'
+            tous.className = 'AllCategoriesBt'
 
             categories.forEach(element => {
                 let listElement = document.createElement('li')
@@ -94,9 +94,30 @@ const categoriesChoice = () => {
     fetch("http://localhost:5678/api/categories")
         .then(response => response.json())
         .then(categories => {
-            const choises = new Set()
+            const categoriesBt = document.querySelector('.listElement')
+            const setChoises = new Set()
 
+            setChoises.add({
+                id: 1,
+                name: 'Objets'
+            })
 
+            setChoises.add({
+                id: 2,
+                name: 'Appartements'
+            })
+
+            setChoises.add({
+                id: 3,
+                name: 'Hotels & restaurants'
+            })
+            categoriesBt.addEventListener('click', () => {
+                setChoises.forEach(element => {
+                    let i = setChoises[i].length
+                    categoriesBt.innerHTML = setChoises[i]
+                })
+            })
+            console.log(setChoises.size)
         })
 
 }
