@@ -6,12 +6,33 @@ const categoriesChoice = () => {
     fetch("http://localhost:5678/api/categories")
         .then(response => response.json())
         .then(categories => {
-            const categoriesBt = document.getElementsByClassName('listElement')
+
             const setChoises = new Set()
 
+            categories.forEach(setChoises => {
+                setChoises.add({
+                    id: 1,
+                    name: "Objets"
+                })
+                setChoises.add({
+                    id: 2,
+                    name: "Appartements"
+                })
+                setChoises.add({
+                    id: 3,
+                    name: "Hotels & restaurants"
+                })
+
+            })
 
         })
+
 }
+
+
+
+
+
 
 
 const checkToken = () => {
@@ -23,7 +44,8 @@ const checkToken = () => {
 
     } else {
         generateCategoriesList()
-        //categoriesChoice()
+
+
     }
 
 }
@@ -50,10 +72,6 @@ const getWorks = () => {
                 figureElement.appendChild(figcaptionElement)
                 gallery.appendChild(figureElement)
             })
-            /*<figure>
-                    <img src="http://localhost:5678/images/thumbnail_IMG_04111696506022220.jpg" alt="Abajour Tahina">
-                    <figcaption>Abajour Tahina</figcaption>
-                </figure>*/
 
         })
 }

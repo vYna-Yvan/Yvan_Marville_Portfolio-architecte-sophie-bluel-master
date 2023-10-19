@@ -362,6 +362,11 @@ footer nav ul {
 	color: #1D6154
 }
 
+.editBox {
+	display: flex;
+	flex-direction: row;
+}
+
 .titleEditBoxIcon {
 	color: #000;
 	margin-right: 11px;

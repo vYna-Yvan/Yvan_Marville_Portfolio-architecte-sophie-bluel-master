@@ -48,10 +48,12 @@ const generateModifierBt = () => {
     const portfolio = document.getElementById('portfolio')
     const portfolioTitle = document.querySelector('#portfolio h2')
     let titleEditBox = document.createElement('div')
+    let editBox = document.createElement('div')
     let titleEditBoxIcon = document.createElement('i')
     let titleEditBoxTexte = document.createElement('p')
     portfolioTitle.className = 'portfolioTitle'
     titleEditBox.className = 'titleEditBox'
+    editBox.className = 'editBox'
     titleEditBoxIcon.className = 'titleEditBoxIcon fa-regular fa-pen-to-square'
     titleEditBoxTexte.className = 'titleEditBoxTexte'
     titleEditBoxTexte.innerHTML = 'Modifer'
@@ -59,9 +61,23 @@ const generateModifierBt = () => {
     portfolio.insertBefore(titleEditBox, portfolio.childNodes[0])
     titleEditBox.appendChild(portfolioTitle)
     titleEditBox.insertBefore(portfolioTitle, titleEditBox.childNodes[0])
-    titleEditBox.insertBefore(titleEditBoxIcon, titleEditBox.childNodes[1])
-    titleEditBox.insertBefore(titleEditBoxTexte, titleEditBox.childNodes[2])
+    titleEditBox.insertBefore(editBox, titleEditBox.childNodes[1])
+    editBox.insertBefore(titleEditBoxIcon, editBox.childNodes[0])
+    editBox.insertBefore(titleEditBoxTexte, editBox.childNodes[1])
 }
+
+// Ocde en prévention de la modale
+const deleteAddPics = addEventListener('click', () => {
+    const modifer = document.getElementsByClassName('editBox')
+    let deleteAddUi = document.createElement('div')
+    let deleteAddTitle = document.createElement('h2')
+    let addPicBt = document.createElement('div')
+    deleteAddUi.className = 'deleteAddPicsBox'
+    deleteAddTitle.className = 'deleteAddPicsTitle'
+    addPicBt.className = 'deleteAddPicsTitleBt'
+
+
+})
 
 
 const generateCategoriesList = () => {
