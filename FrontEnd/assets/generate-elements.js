@@ -7,7 +7,6 @@ const logoutUser = () => {
 
     generateLoginBt()
 
-
 }
 
 const generateLogoutButton = () => {
@@ -44,6 +43,26 @@ const generateTobar = () => {
     modeEditionTexte.innerHTML = 'Mode édition'
 
 }
+
+const generateModifierBt = () => {
+    const portfolio = document.getElementById('portfolio')
+    const portfolioTitle = document.querySelector('#portfolio h2')
+    let titleEditBox = document.createElement('div')
+    let titleEditBoxIcon = document.createElement('i')
+    let titleEditBoxTexte = document.createElement('p')
+    portfolioTitle.className = 'portfolioTitle'
+    titleEditBox.className = 'titleEditBox'
+    titleEditBoxIcon.className = 'titleEditBoxIcon fa-regular fa-pen-to-square'
+    titleEditBoxTexte.className = 'titleEditBoxTexte'
+    titleEditBoxTexte.innerHTML = 'Modifer'
+    portfolio.appendChild(titleEditBox)
+    portfolio.insertBefore(titleEditBox, portfolio.childNodes[0])
+    titleEditBox.appendChild(portfolioTitle)
+    titleEditBox.insertBefore(portfolioTitle, titleEditBox.childNodes[0])
+    titleEditBox.insertBefore(titleEditBoxIcon, titleEditBox.childNodes[1])
+    titleEditBox.insertBefore(titleEditBoxTexte, titleEditBox.childNodes[2])
+}
+
 
 const generateCategoriesList = () => {
     fetch("http://localhost:5678/api/categories")

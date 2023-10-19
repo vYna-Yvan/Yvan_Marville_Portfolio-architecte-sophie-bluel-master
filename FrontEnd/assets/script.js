@@ -19,6 +19,7 @@ const checkToken = () => {
     if (token) {
         generateLogoutButton()
         generateTobar()
+        generateModifierBt()
 
     } else {
         generateCategoriesList()

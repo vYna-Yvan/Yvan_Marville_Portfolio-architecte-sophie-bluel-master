@@ -1,7 +1,6 @@
 const token = localStorage.getItem('token')
 const logButton = document.getElementById('logBt')
 
-
 const checkToken = () => {
     console.log(token)
     if (token) {
@@ -10,6 +9,8 @@ const checkToken = () => {
     }
 }
 checkToken()
+
+
 
 //récupeérer le token sur swaggerconsole.log(passWordContent)
 //console.log(userEmail, userPassWord);
@@ -45,4 +46,9 @@ const loginUser = () => {
             console.log(err)
         })
 }
+
+
+
 logButton.addEventListener('click', loginUser)
+
+
