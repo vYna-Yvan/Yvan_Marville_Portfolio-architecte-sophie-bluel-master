@@ -431,3 +431,15 @@ footer nav ul {
 	color: #fff;
 	transition: 0.5s;
 }
+
+.modalBox {
+	width: 100vw;
+	height: 100vh;
+	background-color: rgba(0, 0, 0, 0.5);
+	top: 50px;
+
+	right: 10px;
+	bottom: 10px;
+	position: absolute;
+	z-index: 10;
+}

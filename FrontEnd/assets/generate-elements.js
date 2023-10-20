@@ -1,13 +1,3 @@
-const logoutUser = () => {
-    localStorage.removeItem('token')
-    localStorage.removeItem('userId')
-    let header = document.getElementById('header')
-    header.classList.remove('mt30')
-    document.querySelector('.top-bar').remove()
-
-    generateLoginBt()
-
-}
 
 const generateLogoutButton = () => {
     const navLogBt = document.querySelector('.navLogin')
@@ -43,7 +33,14 @@ const generateTobar = () => {
     modeEditionTexte.innerHTML = 'Mode édition'
 
 }
+const generateModaleContainer = () => {
+    console.log('Modal')
+    let modalBox = document.createElement('div')
+    modalBox.className = 'modalBox'
+    modalBox.innerHTML = 'Box rtest'
+    document.getElementById('body').appendChild(modalBox)
 
+}
 const generateModifierBt = () => {
     const portfolio = document.getElementById('portfolio')
     const portfolioTitle = document.querySelector('#portfolio h2')
@@ -54,9 +51,10 @@ const generateModifierBt = () => {
     portfolioTitle.className = 'portfolioTitle'
     titleEditBox.className = 'titleEditBox'
     editBox.className = 'editBox'
+    editBox.addEventListener('click', generateModaleContainer)
     titleEditBoxIcon.className = 'titleEditBoxIcon fa-regular fa-pen-to-square'
     titleEditBoxTexte.className = 'titleEditBoxTexte'
-    titleEditBoxTexte.innerHTML = 'Modifer'
+    titleEditBoxTexte.innerHTML = 'Modifier'
     portfolio.appendChild(titleEditBox)
     portfolio.insertBefore(titleEditBox, portfolio.childNodes[0])
     titleEditBox.appendChild(portfolioTitle)
@@ -66,7 +64,9 @@ const generateModifierBt = () => {
     editBox.insertBefore(titleEditBoxTexte, editBox.childNodes[1])
 }
 
+
 // Ocde en prévention de la modale
+/*
 const deleteAddPics = addEventListener('click', () => {
     const modifer = document.getElementsByClassName('editBox')
     let deleteAddUi = document.createElement('div')
@@ -78,29 +78,34 @@ const deleteAddPics = addEventListener('click', () => {
 
 
 })
-
+*/
 
 const generateCategoriesList = () => {
     fetch("http://localhost:5678/api/categories")
         .then(response => response.json())
         .then(categories => {
+            let object = {
+                id: 0,
+                name: "Tous"
+            }
+            categories.push(object)
+            categories.sort((a, b) => a.id - b.id);
             const portfolio = document.getElementById('portfolio')
-            const categoriesBox = document.createElement('nav')
+            const categoriesBox = document.createElement('div')
             const listCategories = document.createElement('ul')
             categoriesBox.className = 'navCategories'
             listCategories.className = 'listCategories'
             portfolio.insertBefore(categoriesBox, portfolio.childNodes[2])
             categoriesBox.insertBefore(listCategories, categoriesBox.childNodes[0])
-            const tous = document.createElement('li')
-            tous.innerHTML = 'Tous'
-            listCategories.insertBefore(tous, listCategories[0])
-            tous.className = 'AllCategoriesBt'
+
+
 
             categories.forEach(element => {
                 let listElement = document.createElement('li')
                 listElement.className = 'listElement'
                 listElement.innerText = element.name
                 listCategories.insertBefore(listElement, listCategories[0])
+                listElement.addEventListener('click', () => getWorks(element.id))
 
             })
 
