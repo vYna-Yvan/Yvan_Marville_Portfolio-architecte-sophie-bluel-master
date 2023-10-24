@@ -18,14 +18,13 @@ const checkToken = () => {
 
     if (token) {
         generateLogoutButton()
-        generateTobar()
+        generateTopbar()
         generateModifierBt()
 
     } else {
         generateCategoriesList()
 
     }
-
 }
 checkToken()
 

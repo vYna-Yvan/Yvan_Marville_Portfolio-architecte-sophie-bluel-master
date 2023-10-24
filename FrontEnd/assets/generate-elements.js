@@ -1,4 +1,4 @@
-
+// button log-out
 const generateLogoutButton = () => {
     const navLogBt = document.querySelector('.navLogin')
     navLogBt.remove()
@@ -13,8 +13,8 @@ const generateLogoutButton = () => {
 
 
 }
-
-const generateTobar = () => {
+//La top-bar 
+const generateTopbar = () => {
     let topBar = document.createElement('div')
     topBar.className = 'top-bar'
     let body = document.getElementById('body')
@@ -33,14 +33,34 @@ const generateTobar = () => {
     modeEditionTexte.innerHTML = 'Mode édition'
 
 }
-const generateModaleContainer = () => {
+// Modal pour surpprimer des elements
+const generateModaleContainerSupp = () => {
     console.log('Modal')
-    let modalBox = document.createElement('div')
-    modalBox.className = 'modalBox'
-    modalBox.innerHTML = 'Box rtest'
-    document.getElementById('body').appendChild(modalBox)
+    let modalBackground = document.createElement('div')
+    let modal = document.createElement('div')
+    let modalIcon = document.createElement('i')
+    let modalTitle = document.createElement('h2')
+    let modalshowElements = document.createElement('div')
+    modalBackground.className = 'modalBackground'
+    modal.className = 'modal'
+    modalIcon.className = 'fa-solid fa-xmark'
+    modalTitle.className = 'modalTitle'
+    modalTitle.innerHTML = 'Galerie photo'
+    modalshowElements.className = 'modalShowElements'
+    modalBackground.appendChild(modal)
+    modal.appendChild(modalIcon)
+    modal.appendChild(modalTitle)
+    modal.insertBefore(modalshowElements, modal.childNodes[2])
+    document.getElementById('body').appendChild(modalBackground)
 
 }
+// Modal pour ajouter des elements 
+
+const generateModalContainerAdd = () => {
+
+}
+
+//button eidt
 const generateModifierBt = () => {
     const portfolio = document.getElementById('portfolio')
     const portfolioTitle = document.querySelector('#portfolio h2')
@@ -51,7 +71,7 @@ const generateModifierBt = () => {
     portfolioTitle.className = 'portfolioTitle'
     titleEditBox.className = 'titleEditBox'
     editBox.className = 'editBox'
-    editBox.addEventListener('click', generateModaleContainer)
+    editBox.addEventListener('click', generateModaleContainerSupp)
     titleEditBoxIcon.className = 'titleEditBoxIcon fa-regular fa-pen-to-square'
     titleEditBoxTexte.className = 'titleEditBoxTexte'
     titleEditBoxTexte.innerHTML = 'Modifier'
@@ -65,21 +85,8 @@ const generateModifierBt = () => {
 }
 
 
-// Ocde en prévention de la modale
-/*
-const deleteAddPics = addEventListener('click', () => {
-    const modifer = document.getElementsByClassName('editBox')
-    let deleteAddUi = document.createElement('div')
-    let deleteAddTitle = document.createElement('h2')
-    let addPicBt = document.createElement('div')
-    deleteAddUi.className = 'deleteAddPicsBox'
-    deleteAddTitle.className = 'deleteAddPicsTitle'
-    addPicBt.className = 'deleteAddPicsTitleBt'
 
-
-})
-*/
-
+// Liste de categorie 
 const generateCategoriesList = () => {
     fetch("http://localhost:5678/api/categories")
         .then(response => response.json())
