@@ -1,5 +1,7 @@
 const token = localStorage.getItem('token')
 
+
+
 const logoutUser = () => {
     localStorage.removeItem('token')
     localStorage.removeItem('userId')
@@ -28,6 +30,7 @@ const checkToken = () => {
 }
 checkToken()
 
+
 const getWorks = (categoryId) => {
 
     fetch("http://localhost:5678/api/works")
@@ -41,6 +44,7 @@ const getWorks = (categoryId) => {
                 child = gallery.lastElementChild;
             }
             console.log(works)
+
             works.forEach(element => {
                 if (categoryId === 0) {
                     var figureElement = document.createElement("figure")

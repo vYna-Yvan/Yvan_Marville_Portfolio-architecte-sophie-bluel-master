@@ -1,4 +1,5 @@
-// button log-out
+
+const tokenModal = localStorage.getItem('token')
 const generateLogoutButton = () => {
     const navLogBt = document.querySelector('.navLogin')
     navLogBt.remove()
@@ -33,7 +34,59 @@ const generateTopbar = () => {
     modeEditionTexte.innerHTML = 'Mode édition'
 
 }
+const getModalWorks = () => {
+    fetch("http://localhost:5678/api/works")
+
+        .then(response => response.json())
+        .then(works => {
+            const modalShowElements = document.querySelector('.modalShowElements')
+
+
+            var child = modalShowElements.lastElementChild;
+            while (child) {
+                modalShowElements.removeChild(child);
+                child = modalShowElements.lastElementChild;
+            }
+            console.log(works)
+
+            works.forEach(element => {
+                const deleteWork = () => {
+                    fetch(`http://localhost:5678/api/works/${element.id}`, {
+                        method: 'DELETE',
+                        headers: {
+                            Authorization: "Bearer " + tokenModal,
+                            "Content-Type": "application/json",
+                            Accept: "application/json",
+                        },
+
+                    }).then(response => response.json())
+
+                }
+                var figureElement = document.createElement("figure")
+                var imageElement = document.createElement("img")
+                var trashContainerElement = document.createElement('div')
+                var trashElement = document.createElement('i')
+                figureElement.className = 'modalFigure'
+                imageElement.className = 'modalImage'
+                trashContainerElement.className = 'trashContainer'
+                trashElement.className = 'fa-solid fa-trash-can trashBt'
+                imageElement.src = element.imageUrl
+                imageElement.alt = element.title
+                figureElement.appendChild(imageElement)
+                trashContainerElement.appendChild(trashElement)
+                figureElement.appendChild(trashContainerElement)
+                modalShowElements.appendChild(figureElement)
+                trashContainerElement.addEventListener('click', deleteWork)
+
+
+
+
+            })
+
+        })
+}
 // Modal pour surpprimer des elements
+
 const generateModaleContainerSupp = () => {
     console.log('Modal')
     let modalBackground = document.createElement('div')
@@ -41,22 +94,43 @@ const generateModaleContainerSupp = () => {
     let modalIcon = document.createElement('i')
     let modalTitle = document.createElement('h2')
     let modalshowElements = document.createElement('div')
+    let addElementBt = document.createElement('div')
     modalBackground.className = 'modalBackground'
     modal.className = 'modal'
     modalIcon.className = 'fa-solid fa-xmark'
     modalTitle.className = 'modalTitle'
     modalTitle.innerHTML = 'Galerie photo'
     modalshowElements.className = 'modalShowElements'
+    addElementBt.className = 'addElementBt'
+    addElementBt.innerHTML = 'Ajouter une photo'
     modalBackground.appendChild(modal)
     modal.appendChild(modalIcon)
     modal.appendChild(modalTitle)
     modal.insertBefore(modalshowElements, modal.childNodes[2])
+
+
+    getModalWorks()
+
+    modal.insertBefore(addElementBt, modal.childNodes[3])
     document.getElementById('body').appendChild(modalBackground)
+    addElementBt.addEventListener('click', generateModalContainerAdd)
 
 }
 // Modal pour ajouter des elements 
 
 const generateModalContainerAdd = () => {
+    console.log('Je suis la modal add')
+    const modal = document.querySelector('.modal')
+
+
+
+    var child = modal.lastElementChild;
+    while (child) {
+        modal.removeChild(child);
+        child = modal.lastElementChild;
+    }
+    let returnIcon = document.createElement('i')
+    let closeIcon = document.createElement('i')
 
 }
 
