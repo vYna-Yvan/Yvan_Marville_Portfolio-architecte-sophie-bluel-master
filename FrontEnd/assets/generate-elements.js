@@ -1,5 +1,6 @@
-
+//le token
 const tokenModal = localStorage.getItem('token')
+//button log-out
 const generateLogoutButton = () => {
     const navLogBt = document.querySelector('.navLogin')
     navLogBt.remove()
@@ -34,6 +35,7 @@ const generateTopbar = () => {
     modeEditionTexte.innerHTML = 'Mode édition'
 
 }
+// afficher les elements dans la modal
 const getModalWorks = () => {
     fetch("http://localhost:5678/api/works")
 
@@ -88,7 +90,7 @@ const getModalWorks = () => {
 // Modal pour surpprimer des elements
 
 const generateModaleContainerSupp = () => {
-    console.log('Modal')
+
     let modalBackground = document.createElement('div')
     let modal = document.createElement('div')
     let modalIcon = document.createElement('i')
@@ -117,21 +119,29 @@ const generateModaleContainerSupp = () => {
 
 }
 // Modal pour ajouter des elements 
-
 const generateModalContainerAdd = () => {
     console.log('Je suis la modal add')
     const modal = document.querySelector('.modal')
-
-
 
     var child = modal.lastElementChild;
     while (child) {
         modal.removeChild(child);
         child = modal.lastElementChild;
     }
-    let returnIcon = document.createElement('i')
+    let returnArrow = document.createElement('i')
     let closeIcon = document.createElement('i')
+    let modalAddTitle = document.createElement('h2')
 
+    modal.classList.add('ModalAdd')
+    returnArrow.className = 'fa-solid fa-arrow-left-long returnArrow'
+    closeIcon.className = 'fa-solid fa-xmark closeIcon'
+    modalAddTitle.className = 'modalAddTitle'
+    modalAddTitle.innerHTML = 'Ajout photo'
+    modal.appendChild(returnArrow)
+    modal.appendChild(closeIcon)
+    modal.appendChild(modalAddTitle)
+
+    // <i class="fa-solid fa-arrow-left-long"></i> flèche return
 }
 
 //button eidt

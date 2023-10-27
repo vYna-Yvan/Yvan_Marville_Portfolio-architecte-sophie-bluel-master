@@ -432,6 +432,7 @@ footer nav ul {
 	transition: 0.5s;
 }
 
+/*Modal */
 .modalBackground {
 	display: flex;
 	justify-content: center;
@@ -446,6 +447,7 @@ footer nav ul {
 	z-index: 10;
 }
 
+/*Modal pour suppirmer des elements*/
 .modal {
 	display: flex;
 	flex-direction: column;
@@ -453,7 +455,7 @@ footer nav ul {
 	position: relative;
 	background-color: #fff;
 	width: 638px;
-	height: 638px;
+	height: auto;
 	border-radius: 10px;
 
 }
@@ -526,4 +528,21 @@ footer nav ul {
 	font-style: normal;
 	padding: 10px 49px;
 	cursor: pointer;
+}
+
+/*Modal pour ajouter des elements*/
+
+.ModalAdd {
+	height: 670px;
+}
+
+.returnArrow {
+	position: absolute;
+	top: 26px;
+	left: 30px;
+
+}
+
+.modalAddTitle {
+	margin-top: 60px;
 }
