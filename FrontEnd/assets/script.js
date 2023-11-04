@@ -1,4 +1,5 @@
 const token = localStorage.getItem('token')
+
 const logoutUser = () => {
     localStorage.removeItem('token')
     localStorage.removeItem('userId')
@@ -110,7 +111,7 @@ const generateModaleContainerSupp = () => {
                         fetch(`http://localhost:5678/api/works/${element.id}`, {
                             method: 'DELETE',
                             headers: {
-                                Authorization: "Bearer " + tokenModal,
+                                Authorization: "Bearer " + token,
                                 "Content-Type": "application/json",
                                 Accept: "application/json",
                             },
@@ -150,8 +151,44 @@ const generateModaleContainerSupp = () => {
     addElementBt.addEventListener('click', generateModalContainerAdd)
 
 }
+const addWork = (e) => {
+    e.preventDefault()
+    const image = document.querySelector('.input-addpic')
+    const title = document.querySelector('.inputTitle')
+    const category = document.querySelector('.inputCategorySelect')
+    const formData = new FormData();
+
+    if (image.files[0]) {
+        formData.append("image", image.files[0]);
+    }
+    else {
+        return alert('Une image est requise pour ajouter un travail')
+    }
+    if (title.value) {
+        formData.append("title", title.value);
+    }
+    else {
+        return alert('Un titre est requis pour ajouter un travail')
+    }
+    if (category.value) {
+        formData.append("category", category.value);
+    }
+    else {
+        return alert('Une catégorie est requise pour ajouter un travail')
+    }
+    console.log(token)
+
+    fetch("http://localhost:5678/api/works", {
+        method: "POST",
+        headers: {
+            Authorization: "Bearer " + token,
+            Accept: "application/json",
+        },
+        body: formData,
+    })
+}
 // modal pour ajouter des elements
-const generateModalContainerAdd = () => {
+const generateModalContainerAdd = async () => {
     console.log('Je suis la modal add')
     const modalBackground = document.querySelector('.modalBackground')
 
@@ -160,8 +197,13 @@ const generateModalContainerAdd = () => {
         modalBackground.removeChild(child);
         child = modalBackground.lastElementChild;
     }
+    const categoriesList = await fetch("http://localhost:5678/api/categories")
+        .then(response => response.json())
+        .then(categories => {
+            return categories
+        })
 
-    const modalAddiv = `<div class="ModalAdd">
+    /*const modalAddiv = `<div class="ModalAdd">
     <div class="close-return-box" ><i class="fa-solid fa-arrow-left arrow-return">
     </i><i class="fa-solid fa-xmark close-modal-X"></i></div>
     
@@ -169,7 +211,7 @@ const generateModalContainerAdd = () => {
     <h2 class="title-modalAdd">Ajout photo</h2>
     
     <div class="form-container">
-    <form class="form-modalAdd" method="post">
+    <form class="form-modalAdd" method="post" >
       <div class="ajout-picture ">
           <div class="preview-image"><img alt="image user" src="" class="import-pictures"></div>
           <i class="fa-regular fa-image icon-picture" style="color: #b9c5cc;"></i>
@@ -182,20 +224,57 @@ const generateModalContainerAdd = () => {
         <label for="labelInputCategory">Catégorie</label>
         <select class="inputCategorySelect" id="category" name="category" >
         <option value="" disabled selected>veuillez selectionner une catégorie</option>
-        
+        ${categoriesList.map(item => (`<option id=${item.id} class="selectcategory">${item.name}</option> `))}
         </select>
         <div class="line-container">
           <div class="line"></div>
         </div>
-        <button type="submit" class="button-valider">Valider</button>
+
+        <input class="button-valider" type="submit" value="Valider" />
       </form>
       </div>
       <p class="msg-error"></p>
-    </div>`
+    </div>`*/
     // ${categories.map(item => (`<option id=${item.id} class="selectcategory">${item.name}</option> `))} ça va dans select en dessous d'option
+    let modalAddDiv = document.createElement('div')
+    modalAddDiv.className = 'ModalAdd'
+    let formContainer = document.createElement('div')
+    formContainer.className = 'form-container'
+    let form = document.createElement('form')
+    form.className = 'form-modalAdd'
+    let inputFile = document.createElement('input')
+    inputFile.className = 'input-addpic'
+    inputFile.type = 'file'
+    let labelTitle = document.createElement('label')
+    labelTitle.innerHTML = 'titre'
+    labelTitle.className = 'labelInputTitle'
+    let inputTitle = document.createElement('input')
+    inputTitle.id = 'title'
+    inputTitle.className = 'inputTitle'
+    let labelCategorie = document.createElement('label')
+    let selectcategory = document.createElement('select')
+    selectcategory.className = 'inputCategorySelect'
+    categoriesList.map(categories => {
+        let categorieOption = document.createElement('option')
+        categorieOption.value = categories.id
+        categorieOption.innerHTML = categories.name
+        selectcategory.appendChild(categorieOption)
+    })
+    let button = document.createElement('button')
+    button.innerHTML = 'valider'
 
+    button.addEventListener('click', addWork)
+    form.appendChild(inputFile)
+    form.appendChild(labelTitle)
+    form.appendChild(inputTitle)
+    form.appendChild(labelCategorie)
+    form.appendChild(selectcategory)
+    form.appendChild(button)
+    formContainer.appendChild(form)
+    modalAddDiv.appendChild(formContainer)
+    modalBackground.appendChild(modalAddDiv)
 
-    modalBackground.innerHTML = modalAddiv
+    // modalBackground.innerHTML = modalAddiv
 
 
 }
@@ -211,6 +290,7 @@ const generateCategoriesList = () => {
     fetch("http://localhost:5678/api/categories")
         .then(response => response.json())
         .then(categories => {
+
             let object = {
                 id: 0,
                 name: "Tous"
