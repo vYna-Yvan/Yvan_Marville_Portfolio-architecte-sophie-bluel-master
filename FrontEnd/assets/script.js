@@ -12,6 +12,7 @@ const logoutUser = () => {
 }
 //button log-out
 const generateLogoutButton = () => {
+
     const navLogBt = document.querySelector('.navLogin')
     navLogBt.remove()
     let liElement = document.createElement('li')
@@ -74,19 +75,21 @@ const generateModifierBt = () => {
 const generateModaleContainerSupp = () => {
 
     let modalBackground = document.createElement('div')
-    let modal = document.createElement('div')
-    let modalIcon = document.createElement('i')
-    let modalTitle = document.createElement('h2')
-    let modalshowElements = document.createElement('div')
-    let addElementBt = document.createElement('div')
     modalBackground.className = 'modalBackground'
+    let modal = document.createElement('div')
     modal.className = 'modal'
+    let modalIcon = document.createElement('i')
     modalIcon.className = 'fa-solid fa-xmark closeFirstModal'
+    let modalTitle = document.createElement('h2')
     modalTitle.className = 'modalTitle'
     modalTitle.innerHTML = 'Galerie photo'
+    let modalshowElements = document.createElement('div')
     modalshowElements.className = 'modalShowElements'
+    let addElementBt = document.createElement('div')
     addElementBt.className = 'addElementBt'
     addElementBt.innerHTML = 'Ajouter une photo'
+
+
     modalBackground.appendChild(modal)
     modal.appendChild(modalIcon)
     modal.appendChild(modalTitle)
@@ -149,6 +152,16 @@ const generateModaleContainerSupp = () => {
     modal.insertBefore(addElementBt, modal.childNodes[3])
     document.getElementById('body').appendChild(modalBackground)
     addElementBt.addEventListener('click', generateModalContainerAdd)
+
+    const closeModal = document.querySelector(".closeFirstModal")
+    closeModal.addEventListener("click", () => {
+        modalBackground.style.display = "none";
+        let child = modalBackground.lastElementChild;
+        while (child) {
+            modalBackground.removeChild(child);
+            child = modalBackground.lastElementChild;
+        }
+    })
 
 }
 const addWork = (e) => {
@@ -238,6 +251,15 @@ const generateModalContainerAdd = async () => {
     // ${categories.map(item => (`<option id=${item.id} class="selectcategory">${item.name}</option> `))} ça va dans select en dessous d'option
     let modalAddDiv = document.createElement('div')
     modalAddDiv.className = 'ModalAdd'
+    let closeReturnbox = document.createElement('div')
+    closeReturnbox.className = 'close-return-box'
+    let arrowReturn = document.createElement('i')
+    arrowReturn.className = 'fa-solid fa-arrow-left arrow-return'
+    let closeModal = document.createElement('i')
+    closeModal.className = 'fa-solid fa-xmark close-modal-X'
+    let modalAddTitle = document.createElement('h2')
+    modalAddTitle.className = 'title-modalAdd'
+    modalAddTitle.innerHTML = 'Ajout photo'
     let formContainer = document.createElement('div')
     formContainer.className = 'form-container'
     let form = document.createElement('form')
@@ -270,9 +292,33 @@ const generateModalContainerAdd = async () => {
     form.appendChild(labelCategorie)
     form.appendChild(selectcategory)
     form.appendChild(button)
+    formContainer.appendChild(modalAddTitle)
     formContainer.appendChild(form)
+    modalAddDiv.appendChild(closeReturnbox)
     modalAddDiv.appendChild(formContainer)
+    closeReturnbox.appendChild(arrowReturn)
+    closeReturnbox.appendChild(closeModal)
     modalBackground.appendChild(modalAddDiv)
+
+    const arrowBack = document.querySelector('.arrow-return')
+    arrowBack.addEventListener('click', () => {
+        var child = modalBackground.lastElementChild
+        while (child) {
+            modalBackground.removeChild(child)
+            child = modalBackground.lastElementChild
+        }
+        generateModaleContainerSupp()
+    })
+
+    const closeModalAdd = document.querySelector(".close-modal-X")
+    closeModalAdd.addEventListener("click", () => {
+        modalBackground.style.display = "none";
+        let child = modalBackground.lastElementChild;
+        while (child) {
+            modalBackground.removeChild(child);
+            child = modalBackground.lastElementChild;
+        }
+    })
 
     // modalBackground.innerHTML = modalAddiv
 
