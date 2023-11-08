@@ -583,6 +583,7 @@ footer nav ul {
 }
 
 .ajout-picture {
+	position: relative;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -601,6 +602,9 @@ footer nav ul {
 }
 
 .label-addpic {
+	display: flex;
+	align-items: center;
+	justify-content: center;
 	width: 173px;
 	height: 36px;
 	flex-shrink: 0;
@@ -614,6 +618,12 @@ footer nav ul {
 	font-weight: 500;
 	line-height: normal;
 
+}
+
+.input-addpic {
+	position: absolute;
+	top: 99px;
+	opacity: 0;
 }
 
 .labelInputTitle {

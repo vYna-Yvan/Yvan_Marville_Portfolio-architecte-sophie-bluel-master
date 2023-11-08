@@ -36,10 +36,10 @@ const generateTopbar = () => {
     let header = document.getElementById('header')
     header.className = 'mt30'
     let modeEdition = document.createElement('div')
-    let modeEditionIcon = document.createElement('i')
-    let modeEditionTexte = document.createElement('p')
     modeEdition.className = 'top-bar-box'
+    let modeEditionIcon = document.createElement('i')
     modeEditionIcon.className = 'fa-regular fa-pen-to-square'
+    let modeEditionTexte = document.createElement('p')
     modeEditionTexte.className = 'top-bar-text'
     topBar.appendChild(modeEdition)
     modeEdition.appendChild(modeEditionIcon)
@@ -51,17 +51,18 @@ const generateTopbar = () => {
 const generateModifierBt = () => {
     const portfolio = document.getElementById('portfolio')
     const portfolioTitle = document.querySelector('#portfolio h2')
-    let titleEditBox = document.createElement('div')
-    let editBox = document.createElement('div')
-    let titleEditBoxIcon = document.createElement('i')
-    let titleEditBoxTexte = document.createElement('p')
     portfolioTitle.className = 'portfolioTitle'
+    let titleEditBox = document.createElement('div')
     titleEditBox.className = 'titleEditBox'
+    let editBox = document.createElement('div')
     editBox.className = 'editBox'
-    editBox.addEventListener('click', generateModaleContainerSupp)
+    let titleEditBoxIcon = document.createElement('i')
     titleEditBoxIcon.className = 'titleEditBoxIcon fa-regular fa-pen-to-square'
+    let titleEditBoxTexte = document.createElement('p')
     titleEditBoxTexte.className = 'titleEditBoxTexte'
     titleEditBoxTexte.innerHTML = 'Modifier'
+
+    editBox.addEventListener('click', generateModaleContainerSupp)
     portfolio.appendChild(titleEditBox)
     portfolio.insertBefore(titleEditBox, portfolio.childNodes[0])
     titleEditBox.appendChild(portfolioTitle)
@@ -264,6 +265,19 @@ const generateModalContainerAdd = async () => {
     formContainer.className = 'form-container'
     let form = document.createElement('form')
     form.className = 'form-modalAdd'
+    let ajoutPicture = document.createElement('div')
+    ajoutPicture.className = 'ajout-picture'
+    let previewImage = document.createElement('div')
+    previewImage.className = 'preview-image'
+    let importPicture = document.createElement('img')
+    importPicture.className = 'import-pictures'
+    importPicture.alt = 'user image'
+    importPicture.src = ''
+    let iconPicture = document.createElement('i')
+    iconPicture.className = 'fa-regular fa-image icon-picture'
+    let labelFile = document.createElement('label')
+    labelFile.className = 'label-addpic'
+    labelFile.innerHTML = '+ Ajouter photo'
     let inputFile = document.createElement('input')
     inputFile.className = 'input-addpic'
     inputFile.type = 'file'
@@ -283,17 +297,24 @@ const generateModalContainerAdd = async () => {
         selectcategory.appendChild(categorieOption)
     })
     let button = document.createElement('button')
+    button.className = 'button-valider'
     button.innerHTML = 'valider'
 
     button.addEventListener('click', addWork)
-    form.appendChild(inputFile)
+    formContainer.appendChild(modalAddTitle)
+    formContainer.appendChild(form)
+    form.appendChild(ajoutPicture)
+    //form.appendChild(inputFile)
     form.appendChild(labelTitle)
     form.appendChild(inputTitle)
     form.appendChild(labelCategorie)
     form.appendChild(selectcategory)
     form.appendChild(button)
-    formContainer.appendChild(modalAddTitle)
-    formContainer.appendChild(form)
+    ajoutPicture.appendChild(previewImage)
+    ajoutPicture.appendChild(iconPicture)
+    ajoutPicture.appendChild(labelFile)
+    ajoutPicture.appendChild(inputFile)
+    previewImage.appendChild(importPicture)
     modalAddDiv.appendChild(closeReturnbox)
     modalAddDiv.appendChild(formContainer)
     closeReturnbox.appendChild(arrowReturn)
@@ -306,6 +327,7 @@ const generateModalContainerAdd = async () => {
         while (child) {
             modalBackground.removeChild(child)
             child = modalBackground.lastElementChild
+            modalBackground.remove(modalBackground)
         }
         generateModaleContainerSupp()
     })
