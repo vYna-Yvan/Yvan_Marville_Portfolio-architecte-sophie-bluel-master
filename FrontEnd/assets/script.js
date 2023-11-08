@@ -167,9 +167,13 @@ const generateModaleContainerSupp = () => {
 }
 const addWork = (e) => {
     e.preventDefault()
+
     const image = document.querySelector('.input-addpic')
     const title = document.querySelector('.inputTitle')
     const category = document.querySelector('.inputCategorySelect')
+
+
+
     const formData = new FormData();
 
     if (image.files[0]) {
@@ -252,44 +256,65 @@ const generateModalContainerAdd = async () => {
     // ${categories.map(item => (`<option id=${item.id} class="selectcategory">${item.name}</option> `))} ça va dans select en dessous d'option
     let modalAddDiv = document.createElement('div')
     modalAddDiv.className = 'ModalAdd'
+
     let closeReturnbox = document.createElement('div')
     closeReturnbox.className = 'close-return-box'
+
     let arrowReturn = document.createElement('i')
     arrowReturn.className = 'fa-solid fa-arrow-left arrow-return'
+
     let closeModal = document.createElement('i')
     closeModal.className = 'fa-solid fa-xmark close-modal-X'
+
     let modalAddTitle = document.createElement('h2')
     modalAddTitle.className = 'title-modalAdd'
     modalAddTitle.innerHTML = 'Ajout photo'
+
     let formContainer = document.createElement('div')
     formContainer.className = 'form-container'
+
     let form = document.createElement('form')
     form.className = 'form-modalAdd'
+
     let ajoutPicture = document.createElement('div')
     ajoutPicture.className = 'ajout-picture'
+
     let previewImage = document.createElement('div')
     previewImage.className = 'preview-image'
+
     let importPicture = document.createElement('img')
     importPicture.className = 'import-pictures'
     importPicture.alt = 'user image'
     importPicture.src = ''
+
     let iconPicture = document.createElement('i')
     iconPicture.className = 'fa-regular fa-image icon-picture'
+
     let labelFile = document.createElement('label')
     labelFile.className = 'label-addpic'
     labelFile.innerHTML = '+ Ajouter photo'
+
     let inputFile = document.createElement('input')
     inputFile.className = 'input-addpic'
     inputFile.type = 'file'
+    inputFile.accept = 'image/png , image/jpeg, image/jpg'
+
+    let textAdvice = document.createElement('p')
+    textAdvice.className = 'textAdvice'
+    textAdvice.innerHTML = 'jpg, png : 4mo max'
+
     let labelTitle = document.createElement('label')
     labelTitle.innerHTML = 'titre'
     labelTitle.className = 'labelInputTitle'
+
     let inputTitle = document.createElement('input')
     inputTitle.id = 'title'
     inputTitle.className = 'inputTitle'
+
     let labelCategorie = document.createElement('label')
     let selectcategory = document.createElement('select')
     selectcategory.className = 'inputCategorySelect'
+    selectcategory.value = ''
     categoriesList.map(categories => {
         let categorieOption = document.createElement('option')
         categorieOption.value = categories.id
@@ -314,12 +339,20 @@ const generateModalContainerAdd = async () => {
     ajoutPicture.appendChild(iconPicture)
     ajoutPicture.appendChild(labelFile)
     ajoutPicture.appendChild(inputFile)
+    ajoutPicture.appendChild(textAdvice)
     previewImage.appendChild(importPicture)
     modalAddDiv.appendChild(closeReturnbox)
     modalAddDiv.appendChild(formContainer)
     closeReturnbox.appendChild(arrowReturn)
     closeReturnbox.appendChild(closeModal)
     modalBackground.appendChild(modalAddDiv)
+
+    form.addEventListener('change', () => {
+        if (inputFile.value !== '' && inputTitle.value !== '') {
+            button.style.backgroundColor = '#1D6154'
+            button.style.cursor = 'pointer'
+        }
+    })
 
     const arrowBack = document.querySelector('.arrow-return')
     arrowBack.addEventListener('click', () => {
