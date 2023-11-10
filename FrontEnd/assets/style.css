@@ -594,10 +594,19 @@ footer nav ul {
 
 }
 
-.import-picture {
-	width: 100%;
+.preview-image {
+	position: absolute;
+	visibility: hidden;
+	height: 100%;
+	z-index: 99;
+	background-color: #fff;
+}
+
+
+.import-pictures {
 	height: 100%;
 	z-index: 100;
+	object-fit: contain;
 	background-color: #ffffff;
 }
 

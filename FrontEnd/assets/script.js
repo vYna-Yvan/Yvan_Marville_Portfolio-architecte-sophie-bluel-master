@@ -79,6 +79,9 @@ const generateModaleContainerSupp = () => {
     modalBackground.className = 'modalBackground'
     let modal = document.createElement('div')
     modal.className = 'modal'
+    modal.addEventListener('click', (e) => {
+        e.stopPropagation()
+    })
     let modalIcon = document.createElement('i')
     modalIcon.className = 'fa-solid fa-xmark closeFirstModal'
     let modalTitle = document.createElement('h2')
@@ -112,6 +115,7 @@ const generateModaleContainerSupp = () => {
 
                 works.forEach(element => {
                     const deleteWork = () => {
+                        console.log(element.id)
                         fetch(`http://localhost:5678/api/works/${element.id}`, {
                             method: 'DELETE',
                             headers: {
@@ -120,7 +124,7 @@ const generateModaleContainerSupp = () => {
                                 Accept: "application/json",
                             },
 
-                        }).then(response => response.json())
+                        })
 
                     }
                     var figureElement = document.createElement("figure")
@@ -164,13 +168,30 @@ const generateModaleContainerSupp = () => {
         }
     })
 
+    modalBackground.addEventListener('click', () => {
+
+        modalBackground.style.display = "none";
+        let child = modalBackground.lastElementChild;
+        while (child) {
+            modalBackground.removeChild(child);
+            child = modalBackground.lastElementChild;
+        }
+
+    })
+
+
+
 }
 const addWork = (e) => {
     e.preventDefault()
-
+    // récupère les inputs 
     const image = document.querySelector('.input-addpic')
     const title = document.querySelector('.inputTitle')
     const category = document.querySelector('.inputCategorySelect')
+    const previewImage = document.querySelector('.preview-image')
+    const importPictures = document.querySelector('.import-pictures')
+
+
 
 
 
@@ -207,7 +228,7 @@ const addWork = (e) => {
 }
 // modal pour ajouter des elements
 const generateModalContainerAdd = async () => {
-    console.log('Je suis la modal add')
+    // console.log('Je suis la modal add')
     const modalBackground = document.querySelector('.modalBackground')
 
     var child = modalBackground.lastElementChild;
@@ -221,39 +242,7 @@ const generateModalContainerAdd = async () => {
             return categories
         })
 
-    /*const modalAddiv = `<div class="ModalAdd">
-    <div class="close-return-box" ><i class="fa-solid fa-arrow-left arrow-return">
-    </i><i class="fa-solid fa-xmark close-modal-X"></i></div>
-    
-    
-    <h2 class="title-modalAdd">Ajout photo</h2>
-    
-    <div class="form-container">
-    <form class="form-modalAdd" method="post" >
-      <div class="ajout-picture ">
-          <div class="preview-image"><img alt="image user" src="" class="import-pictures"></div>
-          <i class="fa-regular fa-image icon-picture" style="color: #b9c5cc;"></i>
-          <label class="label-addpic" id="buttonAddPic" for="addPic">+ Ajouter photo</label>
-          <input  type="file" class="input-addpic" id="addPic" name="addPic" accept="image/png , image/jpeg, image/jpg">
-          <p>jpg, png : 4mo max</p>
-      </div>
-        <label class="labelInputTitle" for="title">Titre</label>
-        <input class="inputTitle" id="title" type="text" >
-        <label for="labelInputCategory">Catégorie</label>
-        <select class="inputCategorySelect" id="category" name="category" >
-        <option value="" disabled selected>veuillez selectionner une catégorie</option>
-        ${categoriesList.map(item => (`<option id=${item.id} class="selectcategory">${item.name}</option> `))}
-        </select>
-        <div class="line-container">
-          <div class="line"></div>
-        </div>
 
-        <input class="button-valider" type="submit" value="Valider" />
-      </form>
-      </div>
-      <p class="msg-error"></p>
-    </div>`*/
-    // ${categories.map(item => (`<option id=${item.id} class="selectcategory">${item.name}</option> `))} ça va dans select en dessous d'option
     let modalAddDiv = document.createElement('div')
     modalAddDiv.className = 'ModalAdd'
 
@@ -298,6 +287,15 @@ const generateModalContainerAdd = async () => {
     inputFile.className = 'input-addpic'
     inputFile.type = 'file'
     inputFile.accept = 'image/png , image/jpeg, image/jpg'
+    inputFile.onchange = (e) => {
+        const [file] = inputFile.files
+        importPicture.src = URL.createObjectURL(file)
+        previewImage.style.setProperty("visibility", "visible")
+        iconPicture.style.setProperty('display', 'none')
+        labelFile.style.setProperty('display', 'none')
+        textAdvice.style.setProperty('display', 'none')
+
+    }
 
     let textAdvice = document.createElement('p')
     textAdvice.className = 'textAdvice'
@@ -347,13 +345,14 @@ const generateModalContainerAdd = async () => {
     closeReturnbox.appendChild(closeModal)
     modalBackground.appendChild(modalAddDiv)
 
+    // si les input son remplis changement de couleur button
     form.addEventListener('change', () => {
         if (inputFile.value !== '' && inputTitle.value !== '') {
             button.style.backgroundColor = '#1D6154'
             button.style.cursor = 'pointer'
         }
     })
-
+    //retour a la première modal
     const arrowBack = document.querySelector('.arrow-return')
     arrowBack.addEventListener('click', () => {
         var child = modalBackground.lastElementChild
@@ -364,7 +363,7 @@ const generateModalContainerAdd = async () => {
         }
         generateModaleContainerSupp()
     })
-
+    // fermeture de modal 
     const closeModalAdd = document.querySelector(".close-modal-X")
     closeModalAdd.addEventListener("click", () => {
         modalBackground.style.display = "none";
@@ -379,11 +378,6 @@ const generateModalContainerAdd = async () => {
 
 
 }
-
-
-
-
-
 
 
 // Liste de categorie 
