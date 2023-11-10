@@ -640,7 +640,7 @@ footer nav ul {
 
 .input-addpic {
 	position: absolute;
-	top: 99px;
+	top: 83px;
 	opacity: 0;
 }
 
@@ -699,5 +699,7 @@ footer nav ul {
 	flex-shrink: 0;
 	border: none;
 	border-radius: 60px;
+	color: #fff;
+	font-weight: 700;
 	background: #A7A7A7;
 }

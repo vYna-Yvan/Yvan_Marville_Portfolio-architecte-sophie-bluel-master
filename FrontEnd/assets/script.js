@@ -245,6 +245,9 @@ const generateModalContainerAdd = async () => {
 
     let modalAddDiv = document.createElement('div')
     modalAddDiv.className = 'ModalAdd'
+    modalAddDiv.addEventListener('click', (e) => {
+        e.stopPropagation()
+    })
 
     let closeReturnbox = document.createElement('div')
     closeReturnbox.className = 'close-return-box'
@@ -321,7 +324,7 @@ const generateModalContainerAdd = async () => {
     })
     let button = document.createElement('button')
     button.className = 'button-valider'
-    button.innerHTML = 'valider'
+    button.innerHTML = 'Valider'
 
     button.addEventListener('click', addWork)
     formContainer.appendChild(modalAddTitle)
@@ -349,6 +352,7 @@ const generateModalContainerAdd = async () => {
     form.addEventListener('change', () => {
         if (inputFile.value !== '' && inputTitle.value !== '') {
             button.style.backgroundColor = '#1D6154'
+
             button.style.cursor = 'pointer'
         }
     })
