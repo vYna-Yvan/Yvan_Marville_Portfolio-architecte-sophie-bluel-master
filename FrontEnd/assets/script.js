@@ -355,11 +355,14 @@ const generateModalContainerAdd = async () => {
     //modalBackground.appendChild(modal)
 
     // si les input son remplis changement de couleur button
-    form.addEventListener('change', () => {
-        if (inputFile.value !== '' && inputTitle.value !== '') {
+    form.addEventListener('change', (form) => {
+        if (inputFile.value == '' && inputTitle.value == '') {
             button.style.backgroundColor = '#1D6154'
-
             button.style.cursor = 'pointer'
+
+        } else {
+            button.style.backgroundColor = '#A7A7A7'
+            button.style.cursor = 'not-allowed'
         }
     })
     //retour a la première modal
