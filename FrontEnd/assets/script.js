@@ -82,6 +82,8 @@ const generateModaleContainerSupp = () => {
     modal.addEventListener('click', (e) => {
         e.stopPropagation()
     })
+    let modalContainer = document.createElement('div')
+    modalContainer.className = 'modalContainer'
     let modalIcon = document.createElement('i')
     modalIcon.className = 'fa-solid fa-xmark closeFirstModal'
     let modalTitle = document.createElement('h2')
@@ -95,9 +97,10 @@ const generateModaleContainerSupp = () => {
 
 
     modalBackground.appendChild(modal)
-    modal.appendChild(modalIcon)
-    modal.appendChild(modalTitle)
-    modal.insertBefore(modalshowElements, modal.childNodes[2])
+    modal.appendChild(modalContainer)
+    modalContainer.appendChild(modalIcon)
+    modalContainer.appendChild(modalTitle)
+    modalContainer.insertBefore(modalshowElements, modalContainer.childNodes[2])
     const getModalWorks = () => {
         fetch("http://localhost:5678/api/works")
 
@@ -154,7 +157,7 @@ const generateModaleContainerSupp = () => {
 
     getModalWorks()
 
-    modal.insertBefore(addElementBt, modal.childNodes[3])
+    modalContainer.insertBefore(addElementBt, modalContainer.childNodes[3])
     document.getElementById('body').appendChild(modalBackground)
     addElementBt.addEventListener('click', generateModalContainerAdd)
 
@@ -230,11 +233,15 @@ const addWork = (e) => {
 const generateModalContainerAdd = async () => {
     // console.log('Je suis la modal add')
     const modalBackground = document.querySelector('.modalBackground')
+    const modal = document.querySelector('.modal')
+    modal.addEventListener('click', (e) => {
+        e.stopPropagation()
+    })
 
-    var child = modalBackground.lastElementChild;
+    var child = modal.lastElementChild;
     while (child) {
-        modalBackground.removeChild(child);
-        child = modalBackground.lastElementChild;
+        modal.removeChild(child);
+        child = modal.lastElementChild;
     }
     const categoriesList = await fetch("http://localhost:5678/api/categories")
         .then(response => response.json())
@@ -243,11 +250,9 @@ const generateModalContainerAdd = async () => {
         })
 
 
-    let modalAddDiv = document.createElement('div')
-    modalAddDiv.className = 'ModalAdd'
-    modalAddDiv.addEventListener('click', (e) => {
-        e.stopPropagation()
-    })
+    let modalCaontainer = document.createElement('div')
+    modalCaontainer.className = 'ModalAdd'
+
 
     let closeReturnbox = document.createElement('div')
     closeReturnbox.className = 'close-return-box'
@@ -342,11 +347,12 @@ const generateModalContainerAdd = async () => {
     ajoutPicture.appendChild(inputFile)
     ajoutPicture.appendChild(textAdvice)
     previewImage.appendChild(importPicture)
-    modalAddDiv.appendChild(closeReturnbox)
-    modalAddDiv.appendChild(formContainer)
+    modal.appendChild(modalCaontainer)
+    modalCaontainer.appendChild(closeReturnbox)
+    modalCaontainer.appendChild(formContainer)
     closeReturnbox.appendChild(arrowReturn)
     closeReturnbox.appendChild(closeModal)
-    modalBackground.appendChild(modalAddDiv)
+    //modalBackground.appendChild(modal)
 
     // si les input son remplis changement de couleur button
     form.addEventListener('change', () => {
@@ -359,10 +365,12 @@ const generateModalContainerAdd = async () => {
     //retour a la première modal
     const arrowBack = document.querySelector('.arrow-return')
     arrowBack.addEventListener('click', () => {
-        var child = modalBackground.lastElementChild
+        console.log('KFC')
+        var child = modal.lastElementChild
         while (child) {
-            modalBackground.removeChild(child)
-            child = modalBackground.lastElementChild
+            modal.removeChild(child)
+            child = modal.lastElementChild
+            modal.remove(child)
             modalBackground.remove(modalBackground)
         }
         generateModaleContainerSupp()

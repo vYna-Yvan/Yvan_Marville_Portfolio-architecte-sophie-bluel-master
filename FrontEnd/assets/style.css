@@ -459,6 +459,12 @@ footer nav ul {
 
 }
 
+.modalContainer {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
 .closeFirstModal {
 	position: absolute;
 	right: 30px;
@@ -535,7 +541,7 @@ footer nav ul {
 /*Modal pour ajouter des elements*/
 
 .ModalAdd {
-	background-color: #fff;
+
 	height: 670px;
 	width: 630px;
 	border-radius: 10px;
