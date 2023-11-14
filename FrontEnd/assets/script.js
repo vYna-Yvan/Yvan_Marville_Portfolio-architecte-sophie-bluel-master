@@ -73,10 +73,11 @@ const generateModifierBt = () => {
 }
 
 // Modal pour surpprimer des elements
+let modalBackground = document.createElement('div')
+modalBackground.className = 'modalBackground'
 const generateModaleContainerSupp = () => {
 
-    let modalBackground = document.createElement('div')
-    modalBackground.className = 'modalBackground'
+
     let modal = document.createElement('div')
     modal.className = 'modal'
     modal.addEventListener('click', (e) => {
@@ -330,6 +331,7 @@ const generateModalContainerAdd = async () => {
     let button = document.createElement('button')
     button.className = 'button-valider'
     button.innerHTML = 'Valider'
+    button.style.cursor = 'not-allowed'
 
     button.addEventListener('click', addWork)
     formContainer.appendChild(modalAddTitle)
@@ -356,7 +358,7 @@ const generateModalContainerAdd = async () => {
 
     // si les input son remplis changement de couleur button
     form.addEventListener('change', (form) => {
-        if (inputFile.value == '' && inputTitle.value == '') {
+        if (inputFile.value !== '' && inputTitle.value !== '') {
             button.style.backgroundColor = '#1D6154'
             button.style.cursor = 'pointer'
 
