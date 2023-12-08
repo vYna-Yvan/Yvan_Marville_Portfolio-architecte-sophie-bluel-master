@@ -233,7 +233,7 @@ const addWork = (e) => {
 // modal pour ajouter des elements
 const generateModalContainerAdd = async () => {
     // console.log('Je suis la modal add')
-    const modalBackground = document.querySelector('.modalBackground')
+    //const modalBackground = document.querySelector('.modalBackground')
     const modal = document.querySelector('.modal')
     modal.addEventListener('click', (e) => {
         e.stopPropagation()
@@ -370,7 +370,7 @@ const generateModalContainerAdd = async () => {
     //retour a la première modal
     const arrowBack = document.querySelector('.arrow-return')
     arrowBack.addEventListener('click', () => {
-        console.log('KFC')
+
         var child = modal.lastElementChild
         while (child) {
             modal.removeChild(child)
@@ -407,8 +407,8 @@ const generateCategoriesList = () => {
                 id: 0,
                 name: "Tous"
             }
-            categories.push(object)
-            categories.sort((a, b) => a.id - b.id);
+            categories.push(object) // ajoout dans le tableau
+            categories.sort((a, b) => a.id - b.id);// repositionement dans le tableau 
             const portfolio = document.getElementById('portfolio')
             const categoriesBox = document.createElement('div')
             const listCategories = document.createElement('ul')
