@@ -128,6 +128,9 @@ const generateModaleContainerSupp = () => {
                                 Accept: "application/json",
                             },
 
+                        }).then(() => {
+                            getModalWorks()
+                            getWorks(0)
                         })
 
                     }
@@ -228,6 +231,9 @@ const addWork = (e) => {
             Accept: "application/json",
         },
         body: formData,
+    }).then(() => {
+        getWorks(0);
+        generateModalContainerAdd();
     })
 }
 // modal pour ajouter des elements
